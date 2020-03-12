@@ -35,6 +35,26 @@ public class DBproject{
 	private Connection _connection = null;
 	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
+	/*
+	 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	 * Author   -> Dr. Mariam Salloum
+	 * Modifier -> Dan Murphy
+	 * Method   -> DBProject (String dbname, String dbport, String user,
+	 *                        String passwd) throws SQLException
+	 * Purpose  -> Method which creates a new instance of the DB Project and
+	 *             serves as an initializing intermediary between the
+	 *             server/localhost and the database.
+	 * -----------------------------------------------------------------------
+	 * @param hostname PSQL server hostname
+	 * @param database Name of the database
+	 * @param username the user name used to login to the database
+	 * @param password the user login password
+	 * @throws java.sql.SQLException when failed to make a connection.
+	 * -----------------------------------------------------------------------
+	 * Receives -> dbname, dbport, user, passwd
+	 * Returns  -> NONE
+	 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	 */
 	public DBproject(String dbname, String dbport, String user, String passwd) throws SQLException {
 		System.out.print("Connecting to database...");
 		try{
@@ -52,13 +72,22 @@ public class DBproject{
 		}
 	}
 
-	/**
-	 * Method to execute an update SQL statement.  Update SQL instructions
-	 * includes CREATE, INSERT, UPDATE, DELETE, and DROP.
-	 *
-	 * @param sql the input SQL string
-	 * @throws java.sql.SQLException when update failed
-	 * */
+	/*
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   * Author   -> Dr. Mariam Salloum
+   * Modifier -> Dan Murphy
+   * Method   -> void executeUpdate (String sql) throws SQLException
+   * Purpose  -> Method to execute an update SQL statement.
+   *             Update SQL instruction includes the following:
+   *             CREATE, INSERT, UPDATE, DELETE, DROP
+   * -----------------------------------------------------------------------
+   * @param sql the input SQL string
+   * @throws java.sql.SQLException when update failed
+   * -----------------------------------------------------------------------
+   * Receives -> [String] sql
+   * Returns  -> NONE
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   */
 	public void executeUpdate (String sql) throws SQLException {
 		// creates a statement object
 		Statement stmt = this._connection.createStatement ();
@@ -70,15 +99,24 @@ public class DBproject{
 	    stmt.close ();
 	}//end executeUpdate
 
-	/**
-	 * Method to execute an input query SQL instruction (i.e. SELECT).  This
-	 * method issues the query to the DBMS and outputs the results to
-	 * standard out.
-	 *
-	 * @param query the input query string
-	 * @return the number of rows returned
-	 * @throws java.sql.SQLException when failed to execute the query
-	 */
+	/*
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   * Author   -> Dr. Mariam Salloum
+   * Modifier -> Dan Murphy
+   * Method   -> int executeQueryAndPrintResult (String query)
+   *                                            throws SQLException
+   * Purpose  -> Method to execute an input query SQL instruction (i.e. SELECT).
+   *             This method issues the query to the DBMS and outputs the
+   *             results to standard out.
+   * -----------------------------------------------------------------------
+   * @param query the input query string
+   * @return the number of rows returned
+   * @throws java.sql.SQLException when failed to execute the query
+   * -----------------------------------------------------------------------
+   * Receives -> [String] sql
+   * Returns  -> [int] rowCount
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   */
 	public int executeQueryAndPrintResult (String query) throws SQLException {
 		//creates a statement object
 		Statement stmt = this._connection.createStatement ();
@@ -113,14 +151,25 @@ public class DBproject{
 		return rowCount;
 	}
 
-	/**
-	 * Method to execute an input query SQL instruction (i.e. SELECT).  This
-	 * method issues the query to the DBMS and returns the results as
-	 * a list of records. Each record in turn is a list of attribute values
-	 *
+	/*
+	 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	 * Author   -> Dr. Mariam Salloum
+	 * Modifier -> Dan Murphy
+	 * Method   -> List<List<String>> executeQueryAndReturnResult(String query)
+	 *                                                       throws SQLException
+	 * Purpose  -> Method to execute an input query SQL instruction
+	 *             (i.e. SELECT).
+	 *             This method issues the query to the DBMS and returns the
+	 *             results as a list of records.
+	 *             Each record is a list of attribute values.
+	 * -----------------------------------------------------------------------
 	 * @param query the input query string
 	 * @return the query result as a list of records
 	 * @throws java.sql.SQLException when failed to execute the query
+	 * -----------------------------------------------------------------------
+	 * Receives -> [String] query
+	 * Returns  -> List<List<String>> result
+	 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	 */
 	public List<List<String>> executeQueryAndReturnResult (String query) throws SQLException {
 		//creates a statement object
@@ -137,7 +186,11 @@ public class DBproject{
 		int numCol = rsmd.getColumnCount ();
 		int rowCount = 0;
 
-		//iterates through the result set and saves the data returned by the query.
+		/* ------------------------------------------------- */
+
+		/* Iterates through the result set and saves the data
+		 * returned by the query.
+		 */
 		boolean outputHeader = false;
 		List<List<String>> result  = new ArrayList<List<String>>();
 		while (rs.next()){
@@ -150,14 +203,24 @@ public class DBproject{
 		return result;
 	}//end executeQueryAndReturnResult
 
-	/**
-	 * Method to execute an input query SQL instruction (i.e. SELECT).  This
-	 * method issues the query to the DBMS and returns the number of results
-	 *
-	 * @param query the input query string
-	 * @return the number of rows returned
-	 * @throws java.sql.SQLException when failed to execute the query
-	 */
+	/*
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   * Author   -> Dr. Mariam Salloum
+   * Modifier -> Dan Murphy
+   * Method   -> int executeQuery (String query) throws SQLException
+   * Purpose  -> Method to execute an input query SQL instruction
+   *             (i.e. SELECT).
+   *             This method issues the query to the DBMS and returns the
+   *             number of results.
+   * -----------------------------------------------------------------------
+   * @param query the input query string
+   * @return the number of rows returned
+   * @throws java.sql.SQLException when failed to execute the query
+   * -----------------------------------------------------------------------
+   * Receives -> [String] query
+   * Returns  -> [int] rowCount
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   */
 	public int executeQuery (String query) throws SQLException {
 		//creates a statement object
 		Statement stmt = this._connection.createStatement ();
@@ -175,16 +238,23 @@ public class DBproject{
 		return rowCount;
 	}
 
-	/**
-	 * Method to fetch the last value from sequence. This
-	 * method issues the query to the DBMS and returns the current
-	 * value of sequence used for autogenerated keys
-	 *
+	/*
+	 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	 * Author   -> Dr. Mariam Salloum
+	 * Modifier -> Dan Murphy
+	 * Method   -> int getCurrSeqVal(String sequence) throws SQLException
+	 * Purpose  -> Method to fetch the last value from the sequence.
+	 *             This method issues the query to the DBMS and returns the
+	 *             current value of sequence used for the autogenerated keys.
+	 * -----------------------------------------------------------------------
 	 * @param sequence name of the DB sequence
 	 * @return current value of a sequence
 	 * @throws java.sql.SQLException when failed to execute the query
+	 * -----------------------------------------------------------------------
+	 * Receives -> [String] query
+	 * Returns  -> [int] 1 || [int] -1
+	 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	 */
-
 	public int getCurrSeqVal(String sequence) throws SQLException {
 		Statement stmt = this._connection.createStatement ();
 
@@ -193,9 +263,17 @@ public class DBproject{
 		return -1;
 	}
 
-	/**
-	 * Method to close the physical connection if it is open.
-	 */
+	/*
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   * Author   -> Dr. Mariam Salloum
+   * Modifier -> Dan Murphy
+   * Method   -> void cleanup()
+   * Purpose  -> Method to close the physical connection if it is open.
+   * -----------------------------------------------------------------------
+   * Receives -> NONE
+   * Returns  -> NONE
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   */
 	public void cleanup(){
 		try{
 			if (this._connection != null){
@@ -283,9 +361,20 @@ public class DBproject{
 		}
 	}
 
+	/*
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   * Author   -> Dr. Mariam Salloum
+   * Modifier -> Dan Murphy
+   * Method   -> int readChoice()
+   * Purpose  -> Method to read the users choice from the terminal menu.
+	 *             Returns only if a correct value is given.
+   * -----------------------------------------------------------------------
+   * Receives -> NONE
+   * Returns  -> NONE
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   */
 	public static int readChoice() {
 		int input;
-		// returns only if a correct value is given.
 		do {
 			System.out.print("Please make your choice: ");
 			try { // read the integer, parse it and break.
