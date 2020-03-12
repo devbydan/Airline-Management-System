@@ -353,9 +353,40 @@ public class DBproject{
 		}
 	}/* End of ListsTotalNumberOfRepairsPerPlane method ---------------------- */
 
-	public static void ListTotalNumberOfRepairsPerYear(DBproject esql) {//8
+	/*
+	 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	 * Author   -> Dr. Mariam Salloum
+	 * Modifier -> Dan Murphy, Jose Estrada
+	 * Method   -> void ListsTotalNumberOfRepairsPerPlane(DBproject esql)
+	 * Purpose  -> Method to count repairs per year and list them in
+	 *             ascending order.
+	 * -----------------------------------------------------------------------
+	 * Receives -> DBproject esql
+	 * Returns  -> NONE
+	 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	 */
+
+	 /* /// OPTION 8 /// OPTION 8 /// OPTION 8 /// OPTION 8 /// OPTION 8 /// */
+	public static void ListTotalNumberOfRepairsPerYear(DBproject esql) {
 		// Count repairs per year and list them in ascending order
-	}
+
+		/* Try the following query
+		 * If valid query, call the method to execute and print the query results
+		 * Else, exception handle is caught
+		 */
+		try {
+			String query = "SELECT EXTRACT(year FROM R.repair_date) AS yyyy, COUNT(*) AS total_num_repairs " +
+							 "FROM Repairs R " +
+							 "GROUP BY yyyy " +
+							 "ORDER BY total_num_repairs ASC";
+
+		  System.out.println("\n\n --- EXECUTING QUERY --- \n\n");
+			esql.executeQueryAndPrintResult(query);
+			System.out.println("\n\n --- END OF QUERY RESULTS --- \n\n");
+		}catch(Exception e) {
+			System.err.println(e.getMessage());
+		}
+	}/* End of ListTotalNumberOfRepairsPerYear method ------------------------ */
 
 	public static void FindPassengersCountWithStatus(DBproject esql) {//9
 		// Find how many passengers there are with a status (i.e. W,C,R) and list that number.
