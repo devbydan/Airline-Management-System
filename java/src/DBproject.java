@@ -388,11 +388,180 @@ public class DBproject{
 		return input;
 	}//end readChoice
 
-	public static void AddPlane(DBproject esql) {//1
-	}
+	/*
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   * Author   -> Dr. Mariam Salloum
+   * Modifier -> Dan Murphy, Jose Estrada
+   * Method   -> void AddPlane(DBproject esql)
+   * Purpose  -> Method to add a plane to the DF by reading the users choice
+	 *             from the terminal menu.
+	 *             Returns only if a correct value is given.
+   * -----------------------------------------------------------------------
+   * Receives -> DBproject esql
+   * Returns  -> NONE
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   */
+	public static void AddPlane(DBproject esql) {
 
+		/* Grab Plane ID from user --- */
+		int plane_id;
+		while(true) {
+			try {
+				System.out.println("\tEnter plane ID: ");
+				plane_id = esql.readChoice();
+				break;
+			} catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		}
+		/* ---------------------------------------------------------- */
+
+		/* Grab Plane make from user --- */
+		String plane_make;
+		while(true) {
+			try {
+				System.out.println("\tEnter plane make: ");
+				plane_make = in.readLine();
+				if(plane_make.length() <= 0 || plane_make.length() > 32) {
+					throw new RuntimeException("Length cannot exceed 32 and cannot be empty");
+				}
+				break;
+			} catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		}
+		/* ---------------------------------------------------------- */
+
+		/* Grab Plane model from user --- */
+		String plane_model;
+		while(true) {
+			try {
+				System.out.println("\tEnter plane model: ");
+				plane_model = in.readLine();
+				if(plane_model.length() <= 0 || plane_model.length() > 64) {
+					throw new RuntimeException("cannot exceed 64 and cannot be empty");
+				}
+				break;
+			} catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		}
+		/* ---------------------------------------------------------- */
+
+		/* Grab Plane age from user --- */
+		int plane_age;
+		while(true) {
+			try {
+				System.out.println("\tEnter plane age: ");
+				plane_age = esql.readChoice();
+				break;
+			} catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		}
+		/* ---------------------------------------------------------- */
+
+		/* Grab Plane seat number from user --- */
+		int plane_seats;
+		while(true) {
+			try {
+				System.out.println("\tEnter plane seat number: ");
+				plane_seats = esql.readChoice();
+				break;
+			} catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		}
+
+		 /* Try the following query
+		  * If valid query, call the method to execute and print the query results
+		  * Else, exception handle is caught
+		  */
+			try {
+				String query = "INSERT INTO Plane (id, make, model, age, seats) VALUES (" + plane_id + ", \'" + plane_make + "\', \'" + plane_model + "\', " + plane_age + ", " + plane_seats + ");";
+				esql.executeUpdate(query);
+			}catch(Exception e) {
+				System.err.println(e.getMessage());
+			}
+	}/* End of AddPlane method ----------------------------------------------- */
+
+	/*
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   * Author   -> Dr. Mariam Salloum
+   * Modifier -> Dan Murphy, Jose Estrada
+   * Method   -> void AddPlane(DBproject esql)
+   * Purpose  -> Method to add a pilot to the DF by reading the users choice
+	 *             from the terminal menu.
+	 *             Returns only if a correct value is given.
+   * -----------------------------------------------------------------------
+   * Receives -> DBproject esql
+   * Returns  -> NONE
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   */
 	public static void AddPilot(DBproject esql) {//2
-	}
+
+		/* Grab Pilot ID from user --- */
+		int pilot_id;
+		while(true) {
+			try {
+				System.out.println("\tEnter pilot id: ");
+				 pilot_id = Integer.parseInt(in.readLine());
+				 break;
+			}catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
+
+		/* Grab Pilot full name from user --- */
+		String pilot_full_name;
+		while (true) {
+			try {
+				System.out.println("\tEnter pilot's full name: ");
+				pilot_full_name = in.readLine();
+				if(pilot_full_name.length() > 128) {
+					throw new RuntimeException("cannot exceed 128");
+				}
+				break;
+			} catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
+
+		/* Grab Pilot nationality from user --- */
+		String pilot_nationality;
+		while (true) {
+			try {
+				System.out.println("\tEnter pilot nationality: ");
+				pilot_nationality = in.readLine();
+				if(pilot_nationality.length() > 24) {
+					throw new RuntimeException("cannot exceed 24");
+				}
+				break;
+			} catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
+
+		/* Try the following query
+		 * If valid query, call the method to execute and print the query results
+		 * Else, exception handle is caught
+		 */
+		try {
+			String query = "INSERT INTO Pilot (id, fullname, nationality) VALUES (" + pilot_id + ", \'" + pilot_full_name + "\', \'" + pilot_nationality + "\');";
+
+			esql.executeUpdate(query);
+		}catch(Exception e) {
+			System.err.println(e.getMessage());
+		}
+	} /* End of AddPilot method ---------------------------------------------- */
 
 	public static void AddFlight(DBproject esql) {//3
 		// Given a pilot, plane and flight, adds a flight in the DB
