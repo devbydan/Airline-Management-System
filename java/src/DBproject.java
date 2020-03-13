@@ -568,7 +568,51 @@ public class DBproject{
 	}
 
 	public static void AddTechnician(DBproject esql) {//4
-	}
+
+		/* Grab Technician ID from user --- */
+		int technician_id;
+		while (true) {
+			try {
+				System.out.println("\tEnter technician ID: ");
+				technician_id = Integer.parseInt(in.readLine());
+				if(technician_id < 0) {
+					throw new RuntimeException("ERROR -> Cannot be NULL");
+				}
+				break;
+			} catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
+
+		/* Grab Technician full name from user --- */
+		String technician_full_name;
+		while (true) {
+			try {
+				System.out.println("\tEnter Technician's full name: ");
+				technician_full_name = in.readLine();
+				if(technician_full_name.length() > 128) {
+					throw new RuntimeException("ERROR -> Cannot exceed 128");
+				}
+				break;
+			} catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
+
+		/* Try the following query
+		 * If valid query, call the method to execute and print the query results
+		 * Else, exception handle is caught
+		 */
+		try {
+			String query = "INSERT INTO Technician (id, full_name) VALUES(" + technician_id + ", \'" + technician_full_name + "\');";
+
+			esql.executeUpdate(query);
+		}catch(Exception e) {
+			System.err.println(e.getMessage());
+		}
+	}/* End of AddTechnician method ------------------------------------------ */
 
 	public static void BookFlight(DBproject esql) {//5
 		// Given a customer and a flight that he/she wants to book, add a reservation to the DB
