@@ -412,7 +412,7 @@ public class DBproject{
 		while(true) {
 			try {
 				System.out.println("\tEnter plane ID: ");
-				plane_id = esql.readChoice();
+				plane_id = Integer.parseInt(in.readLine());
 				break;
 			} catch (Exception e) {
 				System.out.println(e);
@@ -460,7 +460,7 @@ public class DBproject{
 		while(true) {
 			try {
 				System.out.println("\tEnter plane age: ");
-				plane_age = esql.readChoice();
+				plane_age = Integer.parseInt(in.readLine());
 				break;
 			} catch (Exception e) {
 				System.out.println(e);
@@ -474,7 +474,7 @@ public class DBproject{
 		while(true) {
 			try {
 				System.out.println("\tEnter plane seat number: ");
-				plane_seats = esql.readChoice();
+				plane_seats = Integer.parseInt(in.readLine());
 				break;
 			} catch (Exception e) {
 				System.out.println(e);
