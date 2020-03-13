@@ -395,7 +395,7 @@ public class DBproject{
    * Author   -> Dr. Mariam Salloum
    * Modifier -> Dan Murphy, Jose Estrada
    * Method   -> void AddPlane(DBproject esql)
-   * Purpose  -> Method to add a plane to the DF by reading the users choice
+   * Purpose  -> Method to add a plane to the DB by reading the users choice
 	 *             from the terminal menu.
 	 *             Returns only if a correct value is given.
    * -----------------------------------------------------------------------
@@ -403,6 +403,8 @@ public class DBproject{
    * Returns  -> NONE
    * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
    */
+
+	 /* /// OPTION 1 /// OPTION 1 /// OPTION 1 /// OPTION 1 /// OPTION 1 /// */
 	public static void AddPlane(DBproject esql) {
 
 		/* Grab Plane ID from user --- */
@@ -497,7 +499,7 @@ public class DBproject{
    * Author   -> Dr. Mariam Salloum
    * Modifier -> Dan Murphy, Jose Estrada
    * Method   -> void AddPlane(DBproject esql)
-   * Purpose  -> Method to add a pilot to the DF by reading the users choice
+   * Purpose  -> Method to add a pilot to the DB by reading the users choice
 	 *             from the terminal menu.
 	 *             Returns only if a correct value is given.
    * -----------------------------------------------------------------------
@@ -505,7 +507,9 @@ public class DBproject{
    * Returns  -> NONE
    * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
    */
-	public static void AddPilot(DBproject esql) {//2
+
+	 /* /// OPTION 2 /// OPTION 2 /// OPTION 2 /// OPTION 2 /// OPTION 2 /// */
+	public static void AddPilot(DBproject esql) {
 
 		/* Grab Pilot ID from user --- */
 		int pilot_id;
@@ -565,11 +569,39 @@ public class DBproject{
 		}
 	} /* End of AddPilot method ---------------------------------------------- */
 
-	public static void AddFlight(DBproject esql) {//3
+	/*
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   * Author   -> Dr. Mariam Salloum
+   * Modifier -> Dan Murphy, Jose Estrada
+   * Method   -> void ListsTotalNumberOfRepairsPerPlane(DBproject esql)
+   * Purpose  -> Method to add a technician to the DB by reading the users
+	 *             choice from the terminal menu.
+   * -----------------------------------------------------------------------
+   * Receives -> DBproject esql
+   * Returns  -> NONE
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   */
+
+	 /* /// OPTION 3 /// OPTION 3 /// OPTION 3 /// OPTION 3 /// OPTION 3 /// */
+	public static void AddFlight(DBproject esql) {
 		// Given a pilot, plane and flight, adds a flight in the DB
 	}
 
-	public static void AddTechnician(DBproject esql) {//4
+	/*
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   * Author   -> Dr. Mariam Salloum
+   * Modifier -> Dan Murphy, Jose Estrada
+   * Method   -> void ListsTotalNumberOfRepairsPerPlane(DBproject esql)
+   * Purpose  -> Method to add a technician to the DB by reading the users
+	 *             choice from the terminal menu.
+   * -----------------------------------------------------------------------
+   * Receives -> DBproject esql
+   * Returns  -> NONE
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   */
+
+	 /* /// OPTION 4 /// OPTION 4 /// OPTION 4 /// OPTION 4 /// OPTION 4 /// */
+	public static void AddTechnician(DBproject esql) {
 
 		/* Grab Technician ID from user --- */
 		int technician_id;
@@ -616,8 +648,26 @@ public class DBproject{
 		}
 	}/* End of AddTechnician method ------------------------------------------ */
 
-	public static void BookFlight(DBproject esql) {//5
-		// Given a customer and a flight that he/she wants to book, add a reservation to the DB
+	/*
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   * Author   -> Dr. Mariam Salloum
+   * Modifier -> Dan Murphy, Jose Estrada
+   * Method   -> void ListsTotalNumberOfRepairsPerPlane(DBproject esql)
+   * Purpose  -> Method to book a flight in the DB given a customer and a
+	 *             flight.
+   * -----------------------------------------------------------------------
+   * Receives -> DBproject esql
+   * Returns  -> NONE
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   */
+
+	 /* /// OPTION 5 /// OPTION 5 /// OPTION 5 /// OPTION 5 /// OPTION 5 /// */
+	public static void BookFlight(DBproject esql) {
+
+
+
+
+
 	}
 
 	/*
