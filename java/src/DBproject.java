@@ -1058,9 +1058,9 @@ public class DBproject{
 	 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	 * Author   -> Dr. Mariam Salloum
 	 * Modifier -> Dan Murphy, Jose Estrada
-	 * Method   -> void ListsTotalNumberOfRepairsPerPlane(DBproject esql)
-	 * Purpose  -> Method to count repairs per year and list them in
-	 *             ascending order.
+	 * Method   -> void FindPassengersCountWithStatus(DBproject esql)
+	 * Purpose  -> Method to find how many passengers there are with a status
+	 *             (i.e. W,C,R) and list that number.
 	 * -----------------------------------------------------------------------
 	 * Receives -> DBproject esql
 	 * Returns  -> NONE
@@ -1069,7 +1069,6 @@ public class DBproject{
 
 	 /* /// OPTION 9 /// OPTION 9 /// OPTION 9 /// OPTION 9 /// OPTION 9 /// */
 	public static void FindPassengersCountWithStatus(DBproject esql) {
-		// Find how many passengers there are with a status (i.e. W,C,R) and list that number.
 
 		/* Grab Passenger status from user --- */
 		String passenger_status;
