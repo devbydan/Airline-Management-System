@@ -1069,6 +1069,22 @@ public class DBproject{
 
 	 /* /// OPTION 9 /// OPTION 9 /// OPTION 9 /// OPTION 9 /// OPTION 9 /// */
 	public static void FindPassengersCountWithStatus(DBproject esql) {
+		/*Grab Flight number from user -- */
+		int Flight_number_choice;
+		//catch user input to determine if flight number is valid
+		while (true) {
+			try {
+				System.out.println("\tEnter flight number: ");
+				 Flight_number_choice = Integer.parseInt(in.readLine());
+				 /*if number is valid proceed to grab status*/
+				if(Flight_number_choice <= 0) {
+					throw new RuntimeException("Input cannot be negative or null");
+				}
+				break;
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
 
 		/* Grab Passenger status from user --- */
 		String passenger_status;
@@ -1093,10 +1109,11 @@ public class DBproject{
 		 * If valid query, call the method to execute and print the query results
 		 * Else, exception handle is caught
 		 */
-		try {
-			String query = "SELECT COUNT(*) AS total_num_passengers " +
-							 "FROM Reservation R " +
-							 "WHERE R.status =  \'" + passenger_status + "\';";
+		 try {
+ 			String query = "SELECT R.fid, COUNT(*) AS total_num_passengers " +
+ 							 "FROM Reservation R " +
+ 							 "WHERE R.status =  \'" + passenger_status + "\' AND R.fid = \'" + Flight_number_choice + "\'" +
+ 							 "GROUP BY R.fid;";
 
 			esql.executeQueryAndPrintResult(query);
 		}catch(Exception e) {
