@@ -584,8 +584,148 @@ public class DBproject{
 
 	 /* /// OPTION 3 /// OPTION 3 /// OPTION 3 /// OPTION 3 /// OPTION 3 /// */
 	public static void AddFlight(DBproject esql) {
-		// Given a pilot, plane and flight, adds a flight in the DB
-	}
+
+		/* Grab Flight number from user --- */
+		int flight_number;
+		while (true) {
+			try {
+				System.out.println("\tEnter flight number: ");
+				flight_number = Integer.parseInt(in.readLine());
+				if (flight_number <= 0){
+					throw new RuntimeException("Flight number cannot be 0 or negative");
+				}
+				break;
+			}catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
+
+		/* Grab Flight cost from user --- */
+		int flight_cost;
+		while (true) {
+			try {
+				System.out.println("\tEnter flight cost: ");
+				flight_cost = Integer.parseInt(in.readLine());
+				if (flight_number <= 0){
+					throw new RuntimeException("Flight cost cannot be 0 or negative");
+				}
+				break;
+			}catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
+
+		/* Grab Flight number of seats sold from user --- */
+		int flight_num_sold;
+		while (true) {
+			try {
+				System.out.println("\tEnter number of seats sold: ");
+				flight_num_sold = Integer.parseInt(in.readLine());
+				if (flight_number <= 0){
+					throw new RuntimeException("Flight number sold cannot be 0 or negative");
+				}
+				break;
+			}catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
+
+		/* Grab Flight number of stops from user --- */
+		int flight_num_stops;
+		while (true) {
+			try {
+				System.out.println("\tEnter number of stops: ");
+				flight_num_stops = Integer.parseInt(in.readLine());
+				if (flight_number <= 0){
+					throw new RuntimeException("Flight number cannot be 0 or negative");
+				}
+				break;
+			}catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
+
+		/* Grab Flight departure date from user --- */
+		LocalDate departureDate;
+		String flight_depart_date;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		while (true) {
+			System.out.print("Input the flight departure time as (YYYY-MM-DD hh:mm): ");
+			try {
+				flight_depart_date = in.readLine();
+				departureDate = LocalDate.parse(flight_depart_date, formatter);
+				break;
+			}catch (Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
+
+		/* Grab Flight arrival date from user --- */
+		String flight_arrival_date;
+		while (true) {
+			System.out.print("Input the flight arrival time as (YYYY-MM-DD hh:mm): ");
+			try {
+				flight_arrival_date = in.readLine();
+				LocalDate arrivalDate = LocalDate.parse(flight_arrival_date, formatter);
+				if(!arrivalDate.isAfter(departureDate)) {
+					throw new RuntimeException("Arrival date cannot be before departure date.");
+				}
+				break;
+			}catch (Exception e) {
+				System.out.println("Your input is invalid!");
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
+
+		/* Grab Flight arrival airport from user --- */
+		String flight_arrival_airport;
+		while (true) {
+			try {
+				System.out.println("\tEnter arrival airport: ");
+				flight_arrival_airport = in.readLine();
+				if(flight_arrival_airport.length() <= 0 || flight_arrival_airport.length() > 5) {
+					throw new RuntimeException("cannot be greater than 5 and cannot be null");
+				}
+				break;
+			} catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
+
+			/* Flight departure airport from user --- */
+			String flight_departure_airport;
+			while (true) {
+				try {
+					System.out.println("\tEnter departure airport: ");
+					flight_departure_airport = in.readLine();
+					if(flight_departure_airport.length() <= 0 || flight_departure_airport.length() > 5) {
+						throw new RuntimeException("cannot be greater than 5 and cannot be null");
+					}
+					break;
+				} catch (Exception e) {
+					System.out.println(e);
+					continue;
+				}
+			} /* ------------------------------------------------------------------- */
+
+			/* Try the following query
+			 * If valid query, call the method to execute and print the query results
+			 * Else, exception handle is caught
+			 */
+				try {
+					String query = "INSERT INTO Flight (fnum, cost, num_sold, num_stops, actual_departure_date, actual_arrival_date, arrival_airport, departure_airport) VALUES (" + flight_number + ", " + flight_cost + ", " + flight_num_sold + ", " + flight_num_stops + ", \'" + flight_depart_date + "\', \'" + flight_arrival_date + "\', \'" + flight_arrival_airport + "\', \'" + flight_departure_airport + "\');";
+
+					esql.executeUpdate(query);
+				}catch (Exception e) {
+					System.err.println (e.getMessage());
+				}
+	}/* End of AddFlight method ---------------------------------------------- */
 
 	/*
    * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
