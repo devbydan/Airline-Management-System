@@ -792,7 +792,7 @@ public class DBproject{
    * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
    * Author   -> Dr. Mariam Salloum
    * Modifier -> Dan Murphy, Jose Estrada
-   * Method   -> void ListsTotalNumberOfRepairsPerPlane(DBproject esql)
+   * Method   -> void BookFlight(DBproject esql)
    * Purpose  -> Method to book a flight in the DB given a customer and a
 	 *             flight.
    * -----------------------------------------------------------------------
@@ -804,11 +804,127 @@ public class DBproject{
 	 /* /// OPTION 5 /// OPTION 5 /// OPTION 5 /// OPTION 5 /// OPTION 5 /// */
 	public static void BookFlight(DBproject esql) {
 
+		/* Grab Customer ID from user --- */
+		int customer_id;
+		while (true) {
+			System.out.println("\tEnter Customer ID: ");
+			try {
+				customer_id = Integer.parseInt(in.readLine());
+				if(customer_id <= 0){
+					throw new RuntimeException("ERROR -> Customer ID cannot be NULL.");
+				}
+				break;
+			} catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
 
+		/* Grab Customer ID from user --- */
+		int flight_number;
+		while (true) {
+			System.out.println("\tEnter Flight number: ");
+			try {
+				flight_number = Integer.parseInt(in.readLine());
+				if(flight_number <= 0){
+					throw new RuntimeException("ERROR -> Flight number cannot be NULL.");
+				}
+				break;
+			} catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
 
+		/* Try the following query
+		 * If valid query, call the method to execute and print the query results
+		 * Else, exception handle is caught
+		 */
+		try {
+			String query = "SELECT R.status " +
+										 "FROM Reservation R " +
+										 "WHERE R.cid = " + customer_id + " AND R.fid = " + flight_number;
 
+			if(esql.executeQueryAndPrintResult(query) == 0) {
+				while(true){
+					System.out.println("No reservation found. Would you like to book one? (Y/N)\n");
 
-	}
+					String input_reservation;
+					String reservation_status;
+					try{
+						input_reservation = in.readLine();
+						if( input_reservation.equals("y") || input_reservation.equals("Y") ){
+							int new_reservation_num;
+							while(true){
+								System.out.println("Enter your new reservation number: ");
+								try{
+									new_reservation_num = Integer.parseInt(in.readLine());
+									if(new_reservation_num <= 0){
+										throw new RuntimeException("Reservation number cannot be 0 or negative!\n\n");
+									}
+									break;
+							}catch (Exception e) {
+								System.out.println("Your input is invalid!"); continue;
+							}/* End of catch --- */
+						}/* End of while(true) --- */
+						//String reservation_status;
+						try{
+							query = "SELECT Total_Seats - Seats_Sold as \"Seats Available\"\nFROM(\nSELECT P.seats as Total_Seats\nFROM Plane P, FlightInfo FI\nWHERE FI.flight_id = " + flight_number + " AND FI.plane_id = P.id\n)total,\n(\nSELECT F.num_sold as Seats_Sold\nFROM Flight F\nWHERE F.fnum = " + flight_number + "\n)sold;";
+							if(esql.executeQueryAndPrintResult(query) != 0){
+								reservation_status = "R"; /* RESERVED --- */
+							}else{
+							reservation_status = "W"; /* ELSE WAITLISTED IF NOT RESERVED --- */
+						}
+							//break;
+						}catch(Exception e) {
+							System.err.println(e.getMessage()); continue;
+						} /* End of catch --- */
+						try{
+							query = "INSERT INTO Reservation (rnum, cid, fid, status) VALUES (" + new_reservation_num + ", " + customer_id + ", " + flight_number + ", \'" + reservation_status + "\');";
+							esql.executeUpdate(query);
+						}catch(Exception e) {
+							System.err.println(e.getMessage());
+						}/* End of catch --- */
+					}/* End of if "y" || "Y" ------------ */
+					else if(!input_reservation.equals("n") || !input_reservation.equals("N")){
+						throw new RuntimeException("ERROR -> Invalid Input. (Y/N) only! *** \n\n");
+					}
+					break;
+				}catch(Exception e) {
+						System.err.println(e.getMessage()); continue;
+					}/* End of catch --- */
+			}/* End of while(true) ------------------------------------- */
+		} else {
+			String update_reservation;
+			while(true){
+				try{
+					System.out.println("Would you like to update your current reservation? (Y/N)");
+					update_reservation = in.readLine();
+					String reservation_status;
+					if( update_reservation.equals("y") || update_reservation.equals("Y") ){
+						reservation_status = "C";
+
+						try{
+							query = "UPDATE Reservation SET status = \'" + reservation_status + "\' WHERE cid = " + customer_id + " AND fid = " + flight_number + ";";
+							esql.executeUpdate(query);
+						}catch (Exception e) {
+							System.out.println(e); continue;
+						}/* End of catch --- */
+					}/* End of if "Y" or "y" statement --- */
+					else if( !update_reservation.equals("n") || !update_reservation.equals("N") ){
+						throw new RuntimeException("ERROR -> Invalid Input! (Y/N) only!\n\n");
+					}/* End of else if --- */
+					break;
+				} catch (Exception e) {
+					System.out.println(e); continue;
+				}/* End of catch statement --- */
+			}/* End of while(true) --- */
+		}/* End of parent else statement -------- */
+		}catch(Exception e) {
+			System.err.println(e.getMessage());
+		}/* End of catch statement --- */
+
+	}/* End of BookFlight method --- */
 
 	/*
    * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
