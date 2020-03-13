@@ -498,7 +498,7 @@ public class DBproject{
    * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
    * Author   -> Dr. Mariam Salloum
    * Modifier -> Dan Murphy, Jose Estrada
-   * Method   -> void AddPlane(DBproject esql)
+   * Method   -> void AddPilot(DBproject esql)
    * Purpose  -> Method to add a pilot to the DB by reading the users choice
 	 *             from the terminal menu.
 	 *             Returns only if a correct value is given.
@@ -573,8 +573,8 @@ public class DBproject{
    * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
    * Author   -> Dr. Mariam Salloum
    * Modifier -> Dan Murphy, Jose Estrada
-   * Method   -> void ListsTotalNumberOfRepairsPerPlane(DBproject esql)
-   * Purpose  -> Method to add a technician to the DB by reading the users
+   * Method   -> void AddFlight(DBproject esql)
+   * Purpose  -> Method to add a flight to the DB by reading the users
 	 *             choice from the terminal menu.
    * -----------------------------------------------------------------------
    * Receives -> DBproject esql
@@ -731,7 +731,7 @@ public class DBproject{
    * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
    * Author   -> Dr. Mariam Salloum
    * Modifier -> Dan Murphy, Jose Estrada
-   * Method   -> void ListsTotalNumberOfRepairsPerPlane(DBproject esql)
+   * Method   -> void AddTechnician(DBproject esql)
    * Purpose  -> Method to add a technician to the DB by reading the users
 	 *             choice from the terminal menu.
    * -----------------------------------------------------------------------
@@ -930,7 +930,7 @@ public class DBproject{
    * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
    * Author   -> Dr. Mariam Salloum
    * Modifier -> Dan Murphy, Jose Estrada
-   * Method   -> void ListsTotalNumberOfRepairsPerPlane(DBproject esql)
+   * Method   -> void ListNumberOfAvailableSeats(DBproject esql)
    * Purpose  -> Method to find the number of available seats, given a
    *             flight number and a date.
    * -----------------------------------------------------------------------
@@ -1024,7 +1024,7 @@ public class DBproject{
 	 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	 * Author   -> Dr. Mariam Salloum
 	 * Modifier -> Dan Murphy, Jose Estrada
-	 * Method   -> void ListsTotalNumberOfRepairsPerPlane(DBproject esql)
+	 * Method   -> void ListsTotalNumberOfRepairsPerYear(DBproject esql)
 	 * Purpose  -> Method to count repairs per year and list them in
 	 *             ascending order.
 	 * -----------------------------------------------------------------------
