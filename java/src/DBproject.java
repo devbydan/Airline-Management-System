@@ -23,6 +23,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 /**
  * This class defines a simple embedded SQL utility class that is designed to
@@ -618,9 +620,65 @@ public class DBproject{
 		// Given a customer and a flight that he/she wants to book, add a reservation to the DB
 	}
 
-	public static void ListNumberOfAvailableSeats(DBproject esql) {//6
-		// For flight number and date, find the number of availalbe seats (i.e. total plane capacity minus booked seats )
-	}
+	/*
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   * Author   -> Dr. Mariam Salloum
+   * Modifier -> Dan Murphy, Jose Estrada
+   * Method   -> void ListsTotalNumberOfRepairsPerPlane(DBproject esql)
+   * Purpose  -> Method to find the number of available seats, given a
+   *             flight number and a date.
+   * -----------------------------------------------------------------------
+   * Receives -> DBproject esql
+   * Returns  -> NONE
+   * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+   */
+
+	 /* /// OPTION 6 /// OPTION 6 /// OPTION 6 /// OPTION 6 /// OPTION 6 /// */
+	public static void ListNumberOfAvailableSeats(DBproject esql) {
+
+		/* Grab Flight number from user --- */
+		int flight_number;
+		while(true) {
+			try {
+				System.out.println("\tEnter flight number: ");
+				flight_number = Integer.parseInt(in.readLine());
+				break;
+			}catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
+
+		/* Grab date from user --- */
+		String date;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+		while(true) {
+			System.out.println("Enter departure date as (yyyy-mm-dd hh:mm)");
+			try {
+				date = in.readLine();
+				LocalDate departure_date = LocalDate.parse(date, formatter);
+				break;
+			}catch (Exception e) {
+				System.out.println("Invalid input. Please enter again.");
+				continue;
+			}
+		} /* ------------------------------------------------------------------- */
+
+		/* Try the following query
+		 * If valid query, call the method to execute and print the query results
+		 * Else, exception handle is caught
+		 */
+		try {
+			String query = "SELECT Total_Seats - Seats_Sold as \"Seats Available\"\nFROM(\nSELECT P.seats as Total_Seats\nFROM Plane P, FlightInfo FI\nWHERE FI.flight_id = " + flight_number + " AND FI.plane_id = P.id\n)total,\n(\nSELECT F.num_sold as Seats_Sold\nFROM Flight F\nWHERE F.fnum = " + flight_number + " AND F.actual_departure_date = \'" + date + "\'\n)sold;";
+
+			if(esql.executeQueryAndPrintResult(query) == 0) {
+				System.out.println("Flight or Departure Time does not exist");
+			}
+		}catch(Exception e) {
+			System.err.println(e.getMessage());
+		}
+	}/* End of AddTechnician method ------------------------------------------ */
 
 	/*
    * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
