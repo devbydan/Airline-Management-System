@@ -637,6 +637,7 @@ public class DBproject{
 
 	 /* /// OPTION 7 /// OPTION 7 /// OPTION 7 /// OPTION 7 /// OPTION 7 /// */
 	public static void ListsTotalNumberOfRepairsPerPlane(DBproject esql) {
+
 		/* Try the following query
 		 * If valid query, call the method to execute and print the query results
 		 * Else, exception handle is caught
@@ -670,7 +671,6 @@ public class DBproject{
 
 	 /* /// OPTION 8 /// OPTION 8 /// OPTION 8 /// OPTION 8 /// OPTION 8 /// */
 	public static void ListTotalNumberOfRepairsPerYear(DBproject esql) {
-		// Count repairs per year and list them in ascending order
 
 		/* Try the following query
 		 * If valid query, call the method to execute and print the query results
@@ -690,7 +690,55 @@ public class DBproject{
 		}
 	}/* End of ListTotalNumberOfRepairsPerYear method ------------------------ */
 
-	public static void FindPassengersCountWithStatus(DBproject esql) {//9
+	/*
+	 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	 * Author   -> Dr. Mariam Salloum
+	 * Modifier -> Dan Murphy, Jose Estrada
+	 * Method   -> void ListsTotalNumberOfRepairsPerPlane(DBproject esql)
+	 * Purpose  -> Method to count repairs per year and list them in
+	 *             ascending order.
+	 * -----------------------------------------------------------------------
+	 * Receives -> DBproject esql
+	 * Returns  -> NONE
+	 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	 */
+
+	 /* /// OPTION 9 /// OPTION 9 /// OPTION 9 /// OPTION 9 /// OPTION 9 /// */
+	public static void FindPassengersCountWithStatus(DBproject esql) {
 		// Find how many passengers there are with a status (i.e. W,C,R) and list that number.
-	}
-}
+
+		/* Grab Passenger status from user --- */
+		String passenger_status;
+		//catch user input to determine if status is valid
+		while(true) {
+			try {
+				System.out.println("\tEnter passenger status: ");
+				passenger_status = in.readLine();
+				/* IF status is valid (W, C, R), proceed to query --- */
+				if(!passenger_status.equals("W") && !passenger_status.equals("C")
+																				 && !passenger_status.equals("R")) {
+				throw new RuntimeException("Input must either be W, C, or R");
+				}
+				break;
+			}catch (Exception e) {
+				System.out.println(e);
+				continue;
+			}
+		}
+
+		/* Try the following query
+		 * If valid query, call the method to execute and print the query results
+		 * Else, exception handle is caught
+		 */
+		try {
+			String query = "SELECT COUNT(*) AS total_num_passengers " +
+							 "FROM Reservation R " +
+							 "WHERE R.status =  \'" + passenger_status + "\';";
+
+			esql.executeQueryAndPrintResult(query);
+		}catch(Exception e) {
+			System.err.println(e.getMessage());
+		}
+	}/* End of FindPassengersCountWithStatus method -------------------------- */
+
+}/* End of DBproject !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
